@@ -1,0 +1,1 @@
+<li><a class="sidebar_icon" href="<?= base_url() ?>home/events"><img src="<?= $this_module_assets ?>events_24.png"><span>Events</span></a></li>

@@ -1,5 +1,5 @@
 <?php
-class Events extends Public_Controller
+class Events extends Site_Controller
 {
     function __construct()
     {

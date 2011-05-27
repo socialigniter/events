@@ -66,7 +66,6 @@ class Events_model extends CI_Model
 			'comments'			=> $event_data['comments'],
 			'geo_lat'			=> $event_data['geo_lat'],
 			'geo_long'			=> $event_data['geo_long'],
-			'geo_accuracy'		=> $event_data['geo_accuracy'],
 			'status'			=> $event_data['status'],
 			'created_at' 		=> unix_to_mysql(now())
 		);	

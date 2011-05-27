@@ -6,23 +6,6 @@ class Api extends REST_Controller
     {
         parent::__construct();      
 	}
-	
-	
-    /* GET types */
-    function recent_get()
-    {
-    	$categories = $this->categories_model->get_timeline();
-        
-        if($categories)
-        {
-            $this->response($categories, 200);
-        }
-
-        else
-        {
-            $this->response(array('error' => 'Could not find any categories'), 404);
-        }
-    }
 
     function search_get()
     {
@@ -32,21 +15,21 @@ class Api extends REST_Controller
     	
         if($categories)
         {
-            $this->response($categories, 200);
+            $message = array('status' => 'success', 'message' => 'Events found', 'data' => $categories);
         }
         else
         {
-            $this->response(array('error' => 'Could not find any '.$search_by.' categories for '.$search_for), 404);
+            $message = array('status' => 'error', 'message' => 'Could not find any '.$search_by.' events for '.$search_for);
         }
+
+		$this->response($message, 200);
     }
 
-
-	/* POST types */
     function create_post()
     {
     	$user_id = $this->session->userdata('user_id');   
     
-		$access = $this->social_igniter->has_access_to_create('category', $user_id);
+		$access = $this->social_auth->has_access_to_create('category', $user_id);
 		
 		if ($access)
 		{
@@ -62,7 +45,6 @@ class Api extends REST_Controller
 
 			// Insert
 		    $category = $this->categories_model->add_category($category_data);
-		    
 		    
 		    // FOR EVENTS TABLE
 			$source = 'web'; // SHOULD BE site_title_url ??? better for decentralized social network?
@@ -92,49 +74,45 @@ class Api extends REST_Controller
 				'frequency'		=> ''
 			);
 	
-			echo $this->events_model->add_event($event_data);		    
+			$event = $this->events_model->add_event($event_data);		    
 			    
-
-			if ($category)
+			if ($event)
 			{
-	        	$message	= array('status' => 'success', 'data' => $category);
-	        	$response	= 200;
+	        	$message = array('status' => 'success', 'message' => 'Your event was created', 'data' => $event);
 	        }
 	        else
 	        {
-		        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
-		        $response	= 400;		        
+		        $message = array('status' => 'error', 'message' => 'Oops unable to add your event');
 	        }
 		}
 		else
 		{
-	        $message	= array('status' => 'error', 'message' => 'Oops unable to add your category');
-	        $response	= 400;
+	        $message = array('status' => 'error', 'message' => 'Oops unable to add your event');
 		}	
 
-        $this->response($message, $response); // 200 being the HTTP response code
+        $this->response($message, 200);
     }
     
-    /* PUT types */
-    function update_put()
+    function update_get()
     {
 		$viewed = $this->social_tools->update_comment_viewed($this->get('id'));			
     	
         if($viewed)
         {
-            $this->response(array('status' => 'success', 'message' => 'Comment viewed'), 200);
+            $message = array('status' => 'success', 'message' => 'Comment viewed');
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not mark as viewed'), 404);
-        }    
+            $message = array('status' => 'error', 'message' => 'Could not mark as viewed');
+        }
+
+        $this->response($message, 200);            
     }  
 
-    /* DELETE types */
-    function destroy_delete()
+    function destroy_get()
     {		
 		// Make sure user has access to do this func
-		$access = $this->social_tools->has_access_to_modify('comment', $this->get('id'));
+		$access = $this->social_auth->has_access_to_modify('comment', $this->get('id'));
     	
     	// Move this up to result of "user_has_access"
     	if ($access)
@@ -149,13 +127,11 @@ class Api extends REST_Controller
 			// Update Content
 			$this->social_igniter->update_content_comments_count($this->get('id'));
         
-        	$this->response(array('status' => 'success', 'message' => 'Comment deleted'), 200);
+        	$message = array('status' => 'success', 'message' => 'Comment deleted');
         }
         else
         {
-            $this->response(array('status' => 'error', 'message' => 'Could not delete that comment!'), 404);
-        }
-        
+            $message = array('status' => 'error', 'message' => 'Could not delete that comment!');
+        }        
     }
-
 }

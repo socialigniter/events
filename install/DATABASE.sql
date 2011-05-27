@@ -1,6 +1,9 @@
-INSERT INTO `content` VALUES('', 1, 0, 0, 'pages', 'page', '', 1, 5, 'Events', 'events', 'Your events go here', 'module_page', 'S', 'A', 0, NULL, NULL, NULL, 'P', '2010-07-17 00:00:00', '2010-08-18 23:50:56');
-
+INSERT INTO `settings` VALUES(NULL, 1, 'events', 'widgets', 'TRUE');
+INSERT INTO `settings` VALUES(NULL, 1, 'events', 'categories', 'TRUE');
 INSERT INTO `settings` VALUES(NULL, 1, 'events', 'enabled', 'TRUE');
+INSERT INTO `settings` VALUES(NULL, 1, 'events', 'create_permission', '3');
+INSERT INTO `settings` VALUES(NULL, 1, 'events', 'publish_permission', '2');
+INSERT INTO `settings` VALUES(NULL, 1, 'events', 'manage_permission', '2');
 INSERT INTO `settings` VALUES(NULL, 1, 'events', 'date_style', 'DIGITS');
 INSERT INTO `settings` VALUES(NULL, 1, 'events', 'categories_display', 'yes');
 INSERT INTO `settings` VALUES(NULL, 1, 'events', 'start_day', 'sunday');

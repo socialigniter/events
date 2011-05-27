@@ -1,22 +1,17 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:		Social Igniter : Events Module : Config
+* Name:		Social Igniter : Events : Config
 * Author: 	Brennan Novak
 * 		  	brennan@reverseproductions.com
 *         	@brennannovak
-*          
-* Created by Brennan Novak
 *
 * Project:	http://social-igniter.com
-* Source: 	http://github.com/social-igniter/module-blog
-*          
-* Created: 06-10-2010 
+* Source: 	http://github.com/socialigniter/events
 *
-* Description: basic blog and admin functionality module for Social Igniter
+* Description: Config for Events App for Social Igniter
 */
 
-// Events Settings
-$config['events']				= 'events/';
+$config['events_path']			= 'events/';
 $config['url_style_events']		= array(
 	'all'		=> '2010 / 01 / 01 / name-of-event',
 	'month'		=> '2010 / 01 / name-of-event',

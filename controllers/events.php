@@ -23,10 +23,10 @@ class Events extends Site_Controller
 	}
 
 	
-	function widgets_sidebar()
+	function widgets_upcoming_events()
 	{
 
-		$this->load->view('partials/widget_sidebar');
+		$this->load->view('widgets/upcoming_events');
 	
 	}
 		

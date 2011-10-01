@@ -32,23 +32,8 @@ class Api extends REST_Controller
 		$access = $this->social_auth->has_access_to_create('category', $user_id);
 		
 		if ($access)
-		{
-        	$category_data = array(
-        		'parent_id'		=> $this->input->post('parent_id'),
-    			'site_id'		=> config_item('site_id'),		
-    			'permission'	=> $this->input->post('permission'),
-				'module'		=> $this->input->post('module'),
-    			'type'			=> $this->input->post('type'),
-    			'category'		=> $this->input->post('category'),
-    			'category_url'	=> $this->input->post('category_url')
-        	);
-
-			// Insert
-		    $category = $this->categories_model->add_category($category_data);
-		    
-		    // FOR EVENTS TABLE
-			$source = 'web'; // SHOULD BE site_title_url ??? better for decentralized social network?
-			
+		{   
+		    // FOR EVENTS TABLE			
 			$start	= friendly_to_mysql_date($this->input->post('date_start')).' '.friendly_to_mysql_time($this->input->post('time_start'));	
 			$end	= friendly_to_mysql_date($this->input->post('date_end')).' '.friendly_to_mysql_time($this->input->post('time_end'));		
 					
